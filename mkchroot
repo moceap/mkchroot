@@ -1,0 +1,53 @@
+#! /usr/bin/bash
+# Fedora Chroot Directory Maker
+# Version 0.0.1
+# Copyright 2015 (c) Mosaab Alzoubi <moceap@hotmail.com>
+# Licensed under WAQFv2 or GPLv3
+# ===============================
+WHO="`whoami`"
+if ! [ "$WHO" = root ] ; then echo "Sorry, You need to be root or similar to continue!!" ; exit ; fi
+echo "Which version of Fedora do you want to creat chroot dir:
+
+(Use 1/2)
+"
+select ver in "21" "22"
+do
+if ! [ -n "$ver" ]; then echo "Wrong choice" ; exit ; fi ; break
+done
+echo "Which arch of Fedora do you want to creat chroot dir:
+
+(Use 1/2)
+"
+select arch in "i386" "x86_64"
+do
+if ! [ -n "$arch" ]; then echo "Wrong choice" ; exit ; fi ; break
+done
+seldir()
+{
+read -p "Enter chroot dir: `echo $'\n> '`" directory
+ckdir
+}
+ckdir()
+{
+if ! [ -d "$directory" ] ; then echo "Directory not found, try again!" ; seldir ; fi
+if [ "$(ls -A "$directory")" ] ; then echo "Choose a blank directory" ; seldir ; fi
+}
+seldir
+read -p "This operation take a while (depends on your internet speed) and use 'yum' command, so you may wait and watch outputs. It completed when it write 'Complete !' , otherwise something goes wrong.
+
+Your chroot dir will maked for Fedora $ver $arch in $directory, if it completed you can use yum in chroot directory directly.
+
+Do you want to continue ? [Enter to continue, ctrl-c to stop]"
+echo "[fcdm]
+name=Temporary repository for 'Fedora Chroot Directory Maker'
+baseurl=https://dl.fedoraproject.org/pub/fedora/linux/releases/$ver/Everything/$arch/os/
+gpgcheck=0
+enabled=0
+" > /etc/yum.repos.d/fcdm.repo
+yum -y --nogpg --installroot="$directory" --disablerepo=* --enablerepo=fcdm install yum
+#for i in "/proc" "/etc/resolv.conf" "/dev/pts" "/dev/shm" "/tmp"
+#do
+#if [ -e "$directory$i" ] ; then rm -rf "$directory$i" ; fi
+#ln -s $i "$directory$i"
+#done
+rm /etc/yum.repos.d/fcdm.repo

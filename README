@@ -1,0 +1,10 @@
+Mkchroot - Fedora Chroot Directory Maker
+=========================================
+
+This tool can create new Fedora chroot directories of in-developing Fedora release from point zero to enabling yum command.
+
+Mkchroot making Fedora chroot directories in any Linux system that support yum like Redhat, Fedora, Ojuba, Debian, Ubuntu ....
+
+This tool requires:
+- Yum
+- Linux
