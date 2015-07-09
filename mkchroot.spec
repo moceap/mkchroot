@@ -10,7 +10,6 @@ Source0:	https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}
 License:	GPLv3
 BuildArch:	noarch
 Requires:	yum
-Requires:	chroot
 
 %description
 This tool can create new Fedora chroot directories
