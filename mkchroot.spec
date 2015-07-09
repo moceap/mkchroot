@@ -24,6 +24,7 @@ enabling yum command.
 # No thing to Build.
 
 %install
+install -m 0755 -d %{buildroot}/%{_bindir}
 install -m 755 mkchroot %{buildroot}/%{_bindir}
 
 %files
