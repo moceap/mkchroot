@@ -6,5 +6,5 @@ This tool can create new Fedora chroot directories of in-developing Fedora relea
 Mkchroot making Fedora chroot directories in any Linux system that support yum like Redhat, Fedora, Ojuba, Debian, Ubuntu ....
 
 This tool requires:
-- Yum
+- DNF
 - Linux
