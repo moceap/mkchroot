@@ -1,8 +1,8 @@
 #! /usr/bin/bash
 # Fedora Chroot Directory Maker
-# Version 0.0.1
+# Version 0.0.2
 # Copyright 2015 (c) Mosaab Alzoubi <moceap@hotmail.com>
-# Licensed under WAQFv2 or GPLv3
+# Licensed under GPLv3
 # ===============================
 WHO="`whoami`"
 if ! [ "$WHO" = root ] ; then echo "Sorry, You need to be root or similar to continue!!" ; exit ; fi
@@ -44,7 +44,7 @@ baseurl=https://dl.fedoraproject.org/pub/fedora/linux/releases/$ver/Everything/$
 gpgcheck=0
 enabled=0
 " > /etc/yum.repos.d/fcdm.repo
-yum -y --nogpg --installroot="$directory" --disablerepo=* --enablerepo=fcdm install yum
+dnf -y --installroot="$directory" --disablerepo=* --enablerepo=fcdm install yum
 #for i in "/proc" "/etc/resolv.conf" "/dev/pts" "/dev/shm" "/tmp"
 #do
 #if [ -e "$directory$i" ] ; then rm -rf "$directory$i" ; fi
